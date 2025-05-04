@@ -162,16 +162,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_DIRS = [
-    'greatstack/static',
-]
-
-
-# media files configuration
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
@@ -200,35 +190,56 @@ AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE')
 # AWS_S3_VERITY = config('AWS_S3_VERITY')
 # DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
 
-# AWS_ACCESS_KEY_ID = 'AKIA5X44YXWDEW45W3PK'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'mys3djangobkt'
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-# AWS_S3_SIGNATURE_NAME = 's3v4'
-# AWS_S3_REGION_NAME = 'ap-south-1'
-# AWS_S3_FILE_OVERWRITE = False
-# AWS_DEFAULT_ACL = None
-# AWS_S3_VERITY = True
-# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
-# AWS_S3_URL_PROTOCOL = 'https'
-# AWS_S3_USE_SSL = True
-# AWS_S3_VERIFY = True
 
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# STATIC_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/'
-# print(STATIC_URL)
+# Check if all necessary AWS S3 environment variables are set
+AWS_S3_READY = (
+    AWS_ACCESS_KEY_ID is not None
+    and AWS_SECRET_ACCESS_KEY is not None
+    and AWS_STORAGE_BUCKET_NAME is not None
+    and AWS_S3_FILE_OVERWRITE is not None
+)
 
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STORAGES = {
+if AWS_S3_READY:
+    # AWS_ACCESS_KEY_ID = 'AKIA5X44YXWDEW45W3PK'
+    # AWS_SECRET_ACCESS_KEY = '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'
+    # AWS_STORAGE_BUCKET_NAME = 'mys3djangobkt'
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    # AWS_S3_SIGNATURE_NAME = 's3v4'
+    # AWS_S3_REGION_NAME = 'ap-south-1'
+    # AWS_S3_FILE_OVERWRITE = False
+    # AWS_DEFAULT_ACL = None
+    # AWS_S3_VERITY = True
+    # AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
+    # AWS_S3_URL_PROTOCOL = 'https'
+    # AWS_S3_USE_SSL = True
+    # AWS_S3_VERIFY = True
 
-    # Media file (image) management
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-    },
+    # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    # STATIC_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/'
+    # print(STATIC_URL)
 
-    # CSS and JS file management
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-    },
-}
+    # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    STORAGES = {
+
+        # Media file (image) management
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        },
+
+        # CSS and JS file management
+        "staticfiles": {
+            "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        },
+    }
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = BASE_DIR / 'static'
+    STATICFILES_DIRS = [
+        'greatstack/static',
+    ]
+
+    # media files configuration
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
