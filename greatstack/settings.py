@@ -188,12 +188,12 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 # AWS_S3_SIGNATURE_NAME = config('AWS_S3_SIGNATURE_NAME')
 # AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
-# AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE')
+AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE')
 # AWS_DEFAULT_ACL = config('AWS_DEFAULT_ACL')
 # AWS_S3_VERITY = config('AWS_S3_VERITY')
 # DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
@@ -201,7 +201,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AWS_ACCESS_KEY_ID = 'AKIA5X44YXWDEW45W3PK'
 # AWS_SECRET_ACCESS_KEY = '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'
 # AWS_STORAGE_BUCKET_NAME = 'mys3djangobkt'
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 # AWS_S3_SIGNATURE_NAME = 's3v4'
 # AWS_S3_REGION_NAME = 'ap-south-1'
 # AWS_S3_FILE_OVERWRITE = False
@@ -218,15 +218,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-# STORAGES = {
+STORAGES = {
 
-#     # Media file (image) management
-#     "default": {
-#         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-#     },
+    # Media file (image) management
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
 
-#     # CSS and JS file management
-#     "staticfiles": {
-#         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-#     },
-# }
+    # CSS and JS file management
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
